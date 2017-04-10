@@ -10,6 +10,9 @@ import UIKit
 
 class LoginViewController: UIViewController {
     
+    var login : UITextField!
+    var pass : UITextField!
+    
     // Constants used in the LoginViewController
     struct Constants {
         static let backgroundColor: UIColor = UIColor(hue: 0.5389, saturation: 1, brightness: 0.92, alpha: 1.0)
@@ -17,11 +20,49 @@ class LoginViewController: UIViewController {
         static let invalidEmailMessage = "Please try again"
     }
 
-    // TODO: instantiate the views needed for your project
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Constants.backgroundColor
+    
+        // UILabel
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 80))
+        label.center = CGPoint(x: 160, y: 120)
+        label.textAlignment = .center
+        label.text = "Login View Controller"
+        label.textColor = UIColor.white
+        label.font = UIFont.systemFont(ofSize: 25)
+        self.view.addSubview(label)
+        
+        // UIView
+        let newView = UIView(frame: CGRect(x: 0, y: 0, width: 300, height: 140))
+        newView.center = CGPoint(x: 160, y: 250)
+        newView.backgroundColor = UIColor.white
+        self.view.addSubview(newView)
+        
+        // UITextField : Login Name
+        login = UITextField(frame: CGRect(x: 0, y: 0, width: 150, height: 80))
+        login.center = CGPoint(x: 90, y: 25)
+        login.placeholder = "berkeley.edu account"
+        login.font = UIFont.systemFont(ofSize: 15)
+        newView.addSubview(login)
+        
+        // UITextField : Password
+        pass = UITextField(frame: CGRect(x: 0, y: 0, width: 150, height: 80))
+        pass.center = CGPoint(x: 90, y: 65)
+        pass.placeholder = "password"
+        pass.font = UIFont.systemFont(ofSize: 15)
+        newView.addSubview(pass)
+        
+        // UIButton
+        let button = UIButton(frame: CGRect(x: 0, y: 0, width: 150, height: 30))
+        button.center = CGPoint(x: 150, y: 105)
+        button.backgroundColor = UIColor(hue: 0.5389, saturation: 1, brightness: 0.92, alpha: 1.0)
+        button.setTitle("Login", for: .normal)
+        button.addTarget(self, action: #selector(buttonAction), for: UIControlEvents.touchUpInside)
+        button.tag = 1
+        newView.addSubview(button)
+        
         
         // TODO: Add your views either as subviews of `view` or subviews of each other using `addSubview`
         
@@ -29,9 +70,13 @@ class LoginViewController: UIViewController {
     }
     
     // TODO: create an IBAction for your login button
-    
-    
-    
+    @IBAction func buttonAction(sender: UIButton) {
+        var senderTag: UIButton = sender
+        if senderTag.tag == 1 {
+            print("button was pressed!")
+            authenticateUser(username: login.text, password: pass.text)
+        }
+    }
     
     
     /// YOU DO NOT NEED TO MODIFY ANY OF THE CODE BELOW (but you will want to use `authenticateUser` at some point)
